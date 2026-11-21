@@ -7,11 +7,11 @@ zenity --info --text="Gracias por usar Debwebos, una aplicación que le facilita
 resultado=$(zenity --forms --title="Configurar Aplicación Deb" \
     --text="Introduce los datos solicitados:" \
     --add-entry="Nombre de la aplicación:" \
-    --add-entry="Versión:" \
+    --add-entry="Versión (ej. 1.0.0):" \
     --add-entry="Sección (Se recomienda usar las siguientes, respetando la letra mayuscula:
 AudioVideo, Development, Education, Game, Graphics, Network, Office, Settings, System o Utility):" \
     --add-entry="Mantenedor:" \
-    --add-entry="Descripción corta:")
+    --add-entry="Descripción breve:")
 
 # Zenity separa los valores devueltos usando el carácter barra vertical (|)
 if [ -n "$resultado" ]; then
@@ -88,7 +88,8 @@ echo "Icon=$nombre_carpeta" >> "$ruta_carpeta/usr/share/applications/$nombre_car
 echo "Categories=$seccion" >> "$ruta_carpeta/usr/share/applications/$nombre_carpeta.desktop"
 
 #Esto es para copiar el archivo shell en su respectiva carpeta
-cp lanzador_actualizado_linux_5.sh $ruta_carpeta/usr/share/$nombre_carpeta/lanzador_actualizado_linux_5.sh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cp "$SCRIPT_DIR/lanzador_actualizado_linux_5.sh" "$ruta_carpeta/usr/share/$nombre_carpeta/lanzador_actualizado_linux_5.sh"
 
 #Esto es para darle los permisos de usar como aplicación a los archivos necesarios.
 chmod +x $ruta_carpeta/usr/bin/$nombre_carpeta
